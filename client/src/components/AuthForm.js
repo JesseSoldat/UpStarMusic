@@ -20,8 +20,6 @@ class AuthForm extends Component {
     ));
   }
 
-  
-
   render() {
     return (
       <div>

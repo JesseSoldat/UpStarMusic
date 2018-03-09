@@ -9,15 +9,20 @@ const UserSchema = new Schema({
 
 UserSchema.pre('save', function(next) {
   const user = this;
-  if(!user.isModified('password')) return next();
-  bcrypt.genSalt(10, (err, salt) => {
-    if(err) return next(err);
-    bcrypt.hash(user.password, salt, null, (err, hash) => {
-      if(err) return next(err);
-      user.password = hash;
-      next();
+
+  if(user.isModified('password')) {
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(user.password, salt, (err, hash) => {
+        user.password = hash;
+        console.log('password', user.password);
+        next();
+      });
     });
-  });
+  } else {
+    next();
+  }  
 });
 
-module.exports = mongoose.model('User', UserSchema);
+
+const User = mongoose.model('User', UserSchema);
+module.exports = {User};

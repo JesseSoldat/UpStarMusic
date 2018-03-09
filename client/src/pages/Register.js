@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 import AuthForm from '../components/AuthForm';
+import * as actions from '../actions/auth';
 
 class Register extends Component {
 
   authenticateUser = (values) => {
-    console.log(values);
-    
+    this.props.startRegister(values)
   }
 
   render() {
@@ -19,5 +20,4 @@ class Register extends Component {
   }
 }
 
-
-export default Register;
+export default connect(null, actions)(Register);

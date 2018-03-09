@@ -1,8 +1,8 @@
 module.exports = (app, User) => {
-  app.post('auth/register', async (req, res) => {
-    console.log(req.body);
-    const { email } = req.body;
-    const user = new User(req.body);
+
+  app.post('/auth/register', async (req, res) => {
+    const { email, password } = req.body;
+    const user = new User({email, password});
 
     try {
       const existingUser = await User.findOne({email});
