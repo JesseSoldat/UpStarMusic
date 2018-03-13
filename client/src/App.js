@@ -1,14 +1,14 @@
+import 'react-input-range/lib/css/index.css';
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import {connect} from 'react-redux';
 import './App.css';
+import * as actions from './actions/auth';
 import Header from './components/Header';
 import Register from './pages/Register';
 import Login from './pages/Login';
-
-import * as actions from './actions/auth';
+import ArtistMain from './pages/ArtistMain';
 const Welcome = () => (<div>Welcome</div>);
-const Dashboard = () => (<div>Dashboard</div>);
 
 class App extends Component {
   componentDidMount() {
@@ -22,9 +22,10 @@ class App extends Component {
           <div>
             <Header />
             <Route exact path="/" component={Welcome}/>
-            <Route exact path="/dashboard" component={Dashboard} />
-            <Route exact path="/register" component={Register} />
+            <Route exact path="/register" component={Register}/>
             <Route exact path="/login" component={Login} />
+            <Route exact path="/dashboard" component={ArtistMain} />
+            
           
           </div>
         </BrowserRouter>
