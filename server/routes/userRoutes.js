@@ -1,4 +1,6 @@
-module.exports = (app, User) => {
+const passportService = require('../services/passport');
+
+module.exports = (app, User, passport) => {
 
   app.post('/auth/register', async (req, res) => {
     const { email, password } = req.body;
@@ -16,5 +18,20 @@ module.exports = (app, User) => {
     catch (err) {
       res.send(err)
     }
+  }); 
+
+  app.post('/auth/login', passport.authenticate('local-login'), (req, res) => {
+    res.send(req.user)  
   });
+
+  app.get('/auth/user', (req, res) => {
+    res.send(req.user);
+  });
+
+  app.get('/auth/logout', (req, res) => {
+    req.logout();
+    res.redirect('/');
+  });
+
+
 }

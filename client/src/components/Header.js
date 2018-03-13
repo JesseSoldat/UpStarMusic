@@ -16,16 +16,23 @@ class Header extends Component {
         return;
       case false:
         return [
-          <li>
+          <li key={1}>
             <Link to="/register">Register</Link>
           </li>,
-          <li>
+          <li key={2}>
             <Link to="/login">Login</Link>
           </li>
         ];
     
       default:
-        break;
+        return [
+          <li key={1}>
+           <Link to="/dashboard">Dashboard</Link>
+          </li>,
+          <li key={2}>
+            <a href="/auth/logout">Logout</a>
+          </li>
+        ]
     }
     
   }

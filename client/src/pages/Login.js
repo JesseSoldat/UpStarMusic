@@ -4,21 +4,21 @@ import { withRouter } from 'react-router-dom';
 import AuthForm from '../components/AuthForm';
 import * as actions from '../actions/auth';
 
-class Register extends Component {
+class Login extends Component {
 
   authenticateUser = (values) => {
-    this.props.startRegister(values, this.props.history)
+    this.props.startLogin(values, this.props.history)
   }
 
   render() {
     return (
       <div>
-        <h4>Register</h4>
-        <AuthForm type="register"
+        <h4>Login</h4>
+        <AuthForm type="login"
           getValues={(values) => this.authenticateUser(values)}/>
       </div>
     )
   }
 }
 
-export default connect(null, actions)(withRouter(Register));
+export default connect(null, actions)(withRouter(Login));
