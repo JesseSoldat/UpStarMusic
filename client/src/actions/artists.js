@@ -3,15 +3,23 @@ import axios from 'axios';
 import {
   SET_AGE_RANGE,
   SET_YEARS_ACTIVE_RANGE,
-  // SEARCH_ARTISTS,
+  SEARCH_ARTISTS,
   // FIND_ARTIST,
   // RESET_ARTIST,
   // CREATE_ERROR,
   // CLEAR_ERROR,
-  // DESELECT_ARTIST,
-  // SELECT_ARTIST,
+  DESELECT_ARTIST,
+  SELECT_ARTIST,
   // RESET_SELECTION
 } from './types';
+
+export const selectArtist = id => {
+  return { type: SELECT_ARTIST, payload: id };
+};
+
+export const deselectArtist = id => {
+  return { type: DESELECT_ARTIST, payload: id };
+};
 
 export const setAgeRange = () => {
   return async (dispatch) => {
@@ -36,3 +44,16 @@ export const setYearsActiveRange = () => {
     }
   }
 }
+export const searchArtists = (...criteria) => {
+  const obj = {...criteria};
+  
+  return async (dispatch) => {
+    try {
+      const res = await axios.post('/api/search-artists', obj);
+      dispatch({type: SEARCH_ARTISTS, payload: res.data});    
+    } 
+    catch (err) {
+      console.log('ACTION searchArtists ERR', err); 
+    }
+  }
+} 

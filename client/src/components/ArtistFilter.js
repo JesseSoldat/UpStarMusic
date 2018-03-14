@@ -11,9 +11,15 @@ const TEXT_FIELDS = [
 class ArtistFilter extends Component {
   componentWillMount() {
     if(this.props.filters) {
-      
+      this.props.searchArtists({
+        name: '',
+        ...this.props.filters
+      });
     } else {
-
+      this.props.searchArtists({
+        name: '',
+        sort: 'name'
+      });
     }
   }
 
@@ -103,5 +109,6 @@ const mapStateToProps = ({filterCriteria, form}) => ({
 
 export default connect(mapStateToProps, actions)(reduxForm({
   destroyOnUnmount: false,
-  form: 'filters'
+  form: 'filters',
+  initialValues: { sort: 'name' }
 })(ArtistFilter));

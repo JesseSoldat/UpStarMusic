@@ -50,4 +50,50 @@ module.exports = (app, Artist) => {
           res.send(err);
         });
   });
+
+  app.post('/api/search-artists', (req, res) => {
+    const offset = 0;
+    const limit = 20;
+    const sortProperty = req.body[0].sort;
+    const criteria = req.body[0];
+    console.log('req', req.body);
+
+    const buildQuery = (criteria) => {
+      const query = {};
+
+      if(criteria.name) {
+        query.$text = { $search: criteria.name };
+      }
+      
+      if(criteria.age) {
+        query.age = {
+          $gte: criteria.age.min,
+          $lte: criteria.age.max
+        }
+      }
+
+      if(criteria.yearsActive) {
+        query.yearsActive = {
+          $gte: criteria.yearsActive.min,
+          $lte: criteria.yearsActive.max
+        }
+      }
+      return query;
+    } 
+    
+    const query = Artist.find(buildQuery(criteria))
+      .sort({ [sortProperty]: 1 })
+      .skip(offset)
+      .limit(limit)
+
+    Promise.all([query, Artist.find(buildQuery(criteria)).count()])
+      .then(data => {
+        res.send({
+          all: data[0],
+          count: data[1],
+          offset,
+          limit
+        });
+      });
+  });
 }

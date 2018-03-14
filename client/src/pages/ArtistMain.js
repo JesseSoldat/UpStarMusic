@@ -1,5 +1,6 @@
 import React from 'react';
 import ArtistFilter from '../components/ArtistFilter';
+import ArtistIndex from '../components/ArtistIndex';
 
 const ArtistMain = () => (
   <div className="row">
@@ -7,7 +8,7 @@ const ArtistMain = () => (
       <ArtistFilter/>
     </div>
     <div className="col s8">
-    
+      <ArtistIndex/>
     </div>
   </div>
 );
