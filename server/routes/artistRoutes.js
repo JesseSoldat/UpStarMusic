@@ -7,8 +7,7 @@ module.exports = (app, Artist) => {
   });
 
   app.get('/api/age-range', (req, res) => {
-    console.log('/api/age-range', req.body);
-    
+   
     const minQuery = Artist
       .find({})
       .sort({ age: 1 })
@@ -21,10 +20,34 @@ module.exports = (app, Artist) => {
       .limit(1)
       .then(artists => artists[0].age);
 
-    return Promise.all([minQuery, maxQuery])
-      .then(res => {
-        return { min: res[0], max: res[1] };
+    Promise.all([minQuery, maxQuery])
+      .then(data => {
+        res.send({ min: data[0], max: data[1] });
+      })
+      .catch(err => {
+        res.send(err);
       });
+  });
 
+  app.get('/api/years-active', (req, res) => {
+    const minQuery = Artist
+      .find({})
+      .sort({ yearsActive: 1 })
+      .limit(1)
+      .then(artists => artists[0].yearsActive);
+
+    const maxQuery = Artist
+      .find({})
+      .sort({ yearsActive: -1 })
+      .limit(1)
+      .then(artists => artists[0].yearsActive);
+
+      Promise.all([minQuery, maxQuery])
+        .then(data => {
+          res.send({ min: data[0], max: data[1] });
+        })
+        .catch(err => {
+          res.send(err);
+        });
   });
 }

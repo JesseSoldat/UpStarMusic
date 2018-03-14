@@ -10,21 +10,30 @@ const TEXT_FIELDS = [
 
 class ArtistFilter extends Component {
   componentWillMount() {
-    // if(this.props.filters) {}
+    if(this.props.filters) {
+      
+    } else {
+
+    }
   }
 
   componentDidMount() {
-    // this.props.setAgeRange();
+    this.props.setAgeRange();
+    this.props.setYearsActiveRange();
+  }
+
+  handleSubmit = (formProps) => {
+    console.log('handleSubmit', formProps); 
   }
 
   renderInputs = () => {
-    return TEXT_FIELDS.map(({label, prop, component}) => (
+    return TEXT_FIELDS.map(({label, prop}) => (
       <div className="input-field" key={prop}>
         <Field
           placeholder={label}
           id={prop}
           name={prop}
-          component={component}
+          component="input"
           type="text"
         />
       </div>
@@ -32,10 +41,11 @@ class ArtistFilter extends Component {
   } 
 
   render() {
+    const {handleSubmit} = this.props;
     return (
       <div className="card blue-grey darken-1 row">
         <div className="card-content white-text">
-          <form>
+          <form onSubmit={handleSubmit(this.handleSubmit)}>
             <div className="center-align card-title">
               Search
             </div>
@@ -49,7 +59,7 @@ class ArtistFilter extends Component {
                 type="text"
                 name="age"
                 range={this.props.ageRange}
-              />
+              /> 
             </div>
 
             <div className="input-field">
@@ -73,6 +83,10 @@ class ArtistFilter extends Component {
               </Field>
             </div>
 
+            <div className="center-align">
+              <button className="btn">Submit</button>
+            </div>
+
           </form>
         </div>
       </div>
@@ -80,9 +94,10 @@ class ArtistFilter extends Component {
   }
 }
 
-const mapStateToProps = ({filterCriteria}) => ({
+const mapStateToProps = ({filterCriteria, form}) => ({
   yearsActive: filterCriteria.yearsActive,
-  ageRange: filterCriteria.ageRange
+  ageRange: filterCriteria.age,
+  filters: form.filters && form.filters.values
 });
 
 

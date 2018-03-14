@@ -2,16 +2,14 @@ import React, { Component } from 'react';
 import Slider from 'react-input-range';
 
 class Range extends Component {
-  onChange(component, values) {
-    console.log(component);
-    console.log(values);
-    
+  onChange(values) {
     const { input: { onChange } } = this.props;
     onChange(values);
   }
 
   render() {
     const { input: { value } } = this.props;
+
     return (
       <div className="range-slider">
         <label>{this.props.label}</label>
