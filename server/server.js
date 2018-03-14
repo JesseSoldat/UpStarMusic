@@ -5,7 +5,8 @@ const cookieSession = require('cookie-session');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 
-const {User} = require('./models/user');
+const User = require('./models/user');
+const Artist = require('./models/artist');
 
 require('./db/database');
 
@@ -22,6 +23,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 require('./routes/userRoutes')(app, User, passport);
+require('./routes/artistRoutes')(app, Artist);
 
 if(process.env.NODE_ENV === 'production') {
   const path = require('path')

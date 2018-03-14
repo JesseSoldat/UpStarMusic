@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import Slider from 'react-input-range';
 
 class Range extends Component {
-  onChange = (component, values) => {
+  onChange(component, values) {
+    console.log(component);
+    console.log(values);
+    
     const { input: { onChange } } = this.props;
     onChange(values);
   }
@@ -13,7 +16,7 @@ class Range extends Component {
       <div className="range-slider">
         <label>{this.props.label}</label>
         <Slider
-          onChange={this.onChange}
+          onChange={this.onChange.bind(this)}
           minValue={parseInt(this.props.range.min)}
           maxValue={parseInt(this.props.range.max)}
           value={value || this.props.range}

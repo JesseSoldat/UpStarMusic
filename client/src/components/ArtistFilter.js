@@ -10,11 +10,11 @@ const TEXT_FIELDS = [
 
 class ArtistFilter extends Component {
   componentWillMount() {
-
+    // if(this.props.filters) {}
   }
 
   componentDidMount() {
-
+    // this.props.setAgeRange();
   }
 
   renderInputs = () => {
