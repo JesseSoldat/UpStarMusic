@@ -1,7 +1,7 @@
 import {
   SEARCH_ARTISTS,
-  FIND_ARTIST,
-  RESET_ARTIST
+  // FIND_ARTIST,
+  // RESET_ARTIST
 } from '../actions/types';
 
 const INITIAL_STATE = {

@@ -6,8 +6,7 @@ module.exports = (app, Artist) => {
     res.send(response); 
   });
 
-  app.get('/api/age-range', (req, res) => {
-   
+  app.get('/api/age-range', (req, res) => {  
     const minQuery = Artist
       .find({})
       .sort({ age: 1 })
@@ -56,7 +55,7 @@ module.exports = (app, Artist) => {
     const limit = 20;
     const sortProperty = req.body[0].sort;
     const criteria = req.body[0];
-    console.log('req', req.body);
+    // console.log('search-artists req.body', req.body);
 
     const buildQuery = (criteria) => {
       const query = {};
@@ -96,4 +95,37 @@ module.exports = (app, Artist) => {
         });
       });
   });
+
+
+  app.post('/api/set-retired', (req, res) => {
+    const { _ids } = req.body;
+    // console.log('_ids to retire', _ids);   
+    Artist.update(
+      { _id: { $in: _ids } },
+      { retired: true },
+      { mulit: true }
+    ).then(() => {
+      res.send({});
+    })
+    .catch(err => {
+      res.send(err);
+    });
+  });
+
+  app.post('/api/set-not-retired', (req, res) => {
+    const { _ids } = req.body;
+    // console.log('_ids to unretire', _ids);
+    Artist.update(
+      { _id: { $in: _ids } },
+      { retired: false },
+      { multi: true }
+    ).then(() => {
+      res.send({});
+    })
+    .catch(err => {
+      res.send(err);
+    });
+  });
+
 }
+

@@ -5,7 +5,6 @@ import { includes } from 'lodash';
 import * as actions from '../actions/artists';
 
 class ArtistIndex extends Component {
-
   onChange = (_id) => {
     if(includes(this.props.selection, _id)) {
       this.props.deselectArtist(_id);
@@ -15,7 +14,21 @@ class ArtistIndex extends Component {
   }
 
   renderRetire = () => {
-
+    if(this.props.selection.length) {
+      // console.log('renderRetire', this.props.selection); 
+      return (
+        <div>
+          <button className="btn"
+            onClick={() => this.props.setRetired({_ids: this.props.selection})}>
+            Retire
+          </button>
+          <button className="btn"
+            onClick={() => this.props.setNotRetired({_ids: this.props.selection})}>
+            Unretire
+          </button>
+        </div>
+      );
+    }
   }
 
   renderList = (artist) => {
@@ -28,10 +41,11 @@ class ArtistIndex extends Component {
           <input type="checkbox"
             id={_id}
             onChange={() => this.onChange(_id)}
+            checked={includes(this.props.selection, _id)}
           />
           <label htmlFor={_id} />
         </div>
-        <img src={artist.image} className="circle"/>
+        <img src={artist.image} alt="artist pic" className="circle"/>
         <div>
           <span className="title">
             <strong>{artist.name}</strong>
@@ -61,8 +75,6 @@ class ArtistIndex extends Component {
   }
 
   render() {
-    console.log(this.props.selection);
-    
     return (
       <div>
         {this.renderRetire()}

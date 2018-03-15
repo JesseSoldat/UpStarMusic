@@ -15,7 +15,8 @@ export default (state = [], action) => {
       //without([2, 1, 2, 3], 1, 2); => [3]
       return without(state, action.payload);
 
-    case RESET_SELECTION:    
+    case RESET_SELECTION: 
+      // console.log('RESET_SELECTION');         
       return [];
   
     default:

@@ -10,16 +10,42 @@ import {
   // CLEAR_ERROR,
   DESELECT_ARTIST,
   SELECT_ARTIST,
-  // RESET_SELECTION
+  RESET_SELECTION
 } from './types';
 
-export const selectArtist = id => {
+export const selectArtist = (id) => {
   return { type: SELECT_ARTIST, payload: id };
 };
 
-export const deselectArtist = id => {
+export const deselectArtist = (id) => {
   return { type: DESELECT_ARTIST, payload: id };
 };
+
+export const setRetired = (ids) => {
+  return async (dispatch, getState) => {
+    try {
+      await axios.post('/api/set-retired', ids);
+      dispatch({type: RESET_SELECTION});
+      refreshSearch(dispatch, getState);
+    } 
+    catch (err) {
+      console.log('ACTION setRetired ERR', err);   
+    }
+  }
+}
+
+export const setNotRetired = (ids) => {
+  return async (dispatch, getState) => {
+    try {
+      await axios.post('/api/set-not-retired', ids);
+      dispatch({ type: RESET_SELECTION });
+      refreshSearch(dispatch, getState);
+    } 
+    catch (err) {
+      console.log('ACTION setNotRetired ERR', err);
+    }
+  }
+}
 
 export const setAgeRange = () => {
   return async (dispatch) => {
@@ -57,3 +83,10 @@ export const searchArtists = (...criteria) => {
     }
   }
 } 
+
+//HELPERS
+const refreshSearch = (dispatch, getState) => {
+  const { artists: {offset, limit } } = getState();
+  const criteria = getState().form.filters.values;
+  dispatch(searchArtists({name: '', ...criteria }, offset, limit ));
+}
