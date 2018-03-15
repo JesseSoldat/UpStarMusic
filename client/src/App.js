@@ -9,6 +9,7 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import ArtistMain from './pages/ArtistMain';
 import ArtistDetail from './pages/ArtistDetail';
+import ArtistEdit from './pages/ArtistEdit';
 
 const Welcome = () => (<div>Welcome</div>);
 
@@ -28,8 +29,7 @@ class App extends Component {
             <Route exact path="/login" component={Login} />
             <Route exact path="/dashboard" component={ArtistMain} />
             <Route exact path="/artists/:id" component={ArtistDetail} />
- 
-          
+            <Route exact path="/artists/edit/:id" component={ArtistEdit} />        
           </div>
         </BrowserRouter>
       </div>

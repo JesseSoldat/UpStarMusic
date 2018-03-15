@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import * as actions from '../actions/artists';
 
 class ArtistDetail extends Component {
+
   componentWillMount() {
     this.props.findArtist(this.props.id);
   }
@@ -59,13 +60,16 @@ class ArtistDetail extends Component {
   render() {
     if(!this.props.artist) return (<div>Loading</div>);
 
-    const { artist: { name, age, genre, image, yearsActive, netWorth, labelName } } = this.props;
+    const { artist: { name, age, genre, image, yearsActive, netWorth, labelName, _id } } = this.props;
 
     return (
       <div>
         <div className="spacer">
           <Link to="/dashboard">Back</Link>
           <a onClick={this.onDelete}>Delete</a>
+          <Link to={`/artists/edit/${_id}`}>
+            Edit
+          </Link>
         </div>
         <ul className="collection artist-detail">
           <li className="collection-item header">

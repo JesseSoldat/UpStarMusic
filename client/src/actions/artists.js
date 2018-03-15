@@ -7,12 +7,20 @@ import {
   FIND_ARTIST,
   RESET_ARTIST,
   RESET_ALL_ARTISTS,
-  // CREATE_ERROR,
-  // CLEAR_ERROR,
+  CREATE_ERROR,
+  CLEAR_ERROR,
   DESELECT_ARTIST,
   SELECT_ARTIST,
   RESET_SELECTION
 } from './types';
+
+export const createError = (msg) => {
+  return { type: CREATE_ERROR, payload: msg };
+};
+
+export const clearError = () => {
+  return { type: CLEAR_ERROR };
+};
 
 export const selectArtist = (id) => {
   return { type: SELECT_ARTIST, payload: id };
@@ -112,6 +120,21 @@ export const deleteArtist = (id, history) => {
     catch (err) {
       console.log('ACTION deleteArtist ERR', err); 
     }
+  }
+}
+
+export const editArtist = (_id, state, history) => {
+  return async (dispatch) => {
+    try {
+    console.log(state);
+    
+    const res = await axios.put(`/api/edit-artist/${_id}`, state);
+      history.push(`../../artists/${_id}`);
+    } 
+    catch (err) {
+      console.log('ACTION editArtist ERR', err);  
+      dispatch({ type: CREATE_ERROR, payload: err });     
+    }    
   }
 }
 

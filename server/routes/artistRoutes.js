@@ -150,5 +150,19 @@ module.exports = (app, Artist) => {
       });
   });
 
+  app.put('/api/edit-artist/:_id', (req, res) => {
+    const {_id} = req.params;
+    const artist = req.body;
+    console.log(artist);
+    
+    Artist.update({_id}, artist)
+      .then(data => {
+        res.send({});
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  });
+
 }
 
