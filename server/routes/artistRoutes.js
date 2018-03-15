@@ -97,6 +97,16 @@ module.exports = (app, Artist) => {
       });
   });
 
+  app.get('/api/find-artist/:id', (req, res) => {
+    // console.log('find-artist', req.params.id);
+    Artist.findById(req.params.id)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  });
 
   app.post('/api/set-retired', (req, res) => {
     const { _ids } = req.body;
@@ -126,6 +136,18 @@ module.exports = (app, Artist) => {
     .catch(err => {
       res.send(err);
     });
+  });
+
+  app.delete('/api/delete-artist/:_id', (req, res) => {
+    const {_id} = req.params;
+    console.log('id', _id);
+    Artist.remove({ _id })
+      .then(() => {
+        res.send({})
+      })
+      .catch(err => {
+        res.send(err);
+      });
   });
 
 }

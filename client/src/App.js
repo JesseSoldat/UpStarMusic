@@ -8,6 +8,8 @@ import Header from './components/Header';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import ArtistMain from './pages/ArtistMain';
+import ArtistDetail from './pages/ArtistDetail';
+
 const Welcome = () => (<div>Welcome</div>);
 
 class App extends Component {
@@ -25,7 +27,8 @@ class App extends Component {
             <Route exact path="/register" component={Register}/>
             <Route exact path="/login" component={Login} />
             <Route exact path="/dashboard" component={ArtistMain} />
-            
+            <Route exact path="/artists/:id" component={ArtistDetail} />
+ 
           
           </div>
         </BrowserRouter>

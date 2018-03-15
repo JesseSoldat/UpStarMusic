@@ -4,8 +4,9 @@ import {
   SET_AGE_RANGE,
   SET_YEARS_ACTIVE_RANGE,
   SEARCH_ARTISTS,
-  // FIND_ARTIST,
-  // RESET_ARTIST,
+  FIND_ARTIST,
+  RESET_ARTIST,
+  RESET_ALL_ARTISTS,
   // CREATE_ERROR,
   // CLEAR_ERROR,
   DESELECT_ARTIST,
@@ -84,6 +85,35 @@ export const searchArtists = (...criteria) => {
     }
   }
 } 
+
+export const findArtist = (id) => {
+  return async (dispatch) => {
+    try {
+      const res = await axios.get(`/api/find-artist/${id}`);
+      dispatch({ type: FIND_ARTIST, payload: res.data });
+    } 
+    catch (err) {
+      console.log('ACTION findArtist ERR', err); 
+    }  
+  }
+}
+
+export const resetArtist = () => {
+  return { type: RESET_ARTIST };
+}
+
+export const deleteArtist = (id, history) => {
+  return async (dispatch) => {
+    try {
+      await axios.delete(`/api/delete-artist/${id}`);
+      dispatch({type: RESET_ALL_ARTISTS});
+      history.push('/dashboard');
+    } 
+    catch (err) {
+      console.log('ACTION deleteArtist ERR', err); 
+    }
+  }
+}
 
 //HELPERS
 const refreshSearch = (dispatch, getState) => {
