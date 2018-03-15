@@ -69,7 +69,8 @@ export const setYearsActiveRange = () => {
       console.log('ACTION setYearsActiveRange ERR', err);            
     }
   }
-}
+} 
+
 export const searchArtists = (...criteria) => {
   const obj = {...criteria};
   

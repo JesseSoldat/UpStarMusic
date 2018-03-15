@@ -7,7 +7,7 @@ import {
 const INITIAL_STATE = {
   all: [],
   offset: 0,
-  limit: 0
+  limit: 10
 };
 
 export default (state = INITIAL_STATE, action) => {

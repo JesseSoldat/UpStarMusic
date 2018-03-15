@@ -51,11 +51,12 @@ module.exports = (app, Artist) => {
   });
 
   app.post('/api/search-artists', (req, res) => {
-    const offset = 0;
-    const limit = 20;
-    const sortProperty = req.body[0].sort;
+    console.log('search-artists req.body', req.body);
+    
+    const offset = req.body[0].offset || 0;
+    const limit = req.body[0].limit || 10;
+    const sortProperty = req.body[0].sort || 'name';
     const criteria = req.body[0];
-    // console.log('search-artists req.body', req.body);
 
     const buildQuery = (criteria) => {
       const query = {};
