@@ -123,12 +123,24 @@ export const deleteArtist = (id, history) => {
   }
 }
 
+export const createArtist = (details, history) => {
+  return async (dispatch) => {
+    try {
+      const res = await axios.post('/api/create-artist', details);
+      console.log('createArtist Action', res.data);     
+      history.push(`../../artists/${res.data._id}`);
+    } 
+    catch (err) {
+      //console.log('ACTION editArtist ERR', err);  
+      dispatch({ type: CREATE_ERROR, payload: err });
+    }
+  }
+}
+
 export const editArtist = (_id, state, history) => {
   return async (dispatch) => {
     try {
-    console.log(state);
-    
-    const res = await axios.put(`/api/edit-artist/${_id}`, state);
+    await axios.put(`/api/edit-artist/${_id}`, state);
       history.push(`../../artists/${_id}`);
     } 
     catch (err) {

@@ -3,6 +3,16 @@ import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
 
 class Header extends Component {
+  state = { id: null }
+
+  componentWillMount() {
+    this.setLink();
+  }
+
+  setLink = () => {
+
+  }
+
   renderBrand = () => {   
     if(this.props.auth) {
       return (<Link to="/dashboard" className="left brand-logo">JBeats</Link>);
@@ -27,9 +37,14 @@ class Header extends Component {
       default:
         return [
           <li key={1}>
-           <Link to="/dashboard">Dashboard</Link>
+           <Link to={`/artists/${this.state.id}`}>Random Artist</Link>
           </li>,
-          <li key={2}>
+           <li key={2}>
+            <Link to={'/artists/new'}>
+              Create Artist
+            </Link>
+          </li>,
+          <li key={3}>
             <a href="/auth/logout">Logout</a>
           </li>
         ]

@@ -51,8 +51,7 @@ module.exports = (app, Artist) => {
   });
 
   app.post('/api/search-artists', (req, res) => {
-    console.log('search-artists req.body', req.body);
-    
+    // console.log('search-artists req.body', req.body);    
     const offset = req.body[0].offset || 0;
     const limit = req.body[0].limit || 10;
     const sortProperty = req.body[0].sort || 'name';
@@ -153,11 +152,22 @@ module.exports = (app, Artist) => {
   app.put('/api/edit-artist/:_id', (req, res) => {
     const {_id} = req.params;
     const artist = req.body;
-    console.log(artist);
-    
+   
     Artist.update({_id}, artist)
       .then(data => {
-        res.send({});
+        res.send(data);
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  });
+
+  app.post('/api/create-artist', (req, res) => {
+    console.log('/api/create-artist', req.body);    
+    const artist = new Artist(req.body);
+    artist.save()
+      .then(data => {
+        res.send(data);
       })
       .catch(err => {
         res.send(err);
