@@ -1,16 +1,24 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
+import * as actions from '../actions/artists';
 
 class Header extends Component {
   state = { id: null }
 
   componentWillMount() {
-    this.setLink();
+    this.props.getArtistsIds().then(data => {
+      this.setLink();
+    });   
   }
 
   setLink = () => {
-
+    const {artistsIds} = this.props;
+    const randomId = artistsIds[~~(Math.random() * artistsIds.length)];
+    // console.log('Artists', randomId);
+    if(randomId) {
+      this.setState(() => ({id: randomId}));
+    } 
   }
 
   renderBrand = () => {   
@@ -37,7 +45,7 @@ class Header extends Component {
       default:
         return [
           <li key={1}>
-           <Link to={`/artists/${this.state.id}`}>Random Artist</Link>
+           <Link to={`/artists/${this.state.id}`} onClick={this.setLink}>Random Artist</Link>
           </li>,
            <li key={2}>
             <Link to={'/artists/new'}>
@@ -70,8 +78,9 @@ class Header extends Component {
   }
 }
 
-const mapStateToProps = ({auth}) => ({
-  auth
+const mapStateToProps = ({auth, artists}) => ({
+  auth,
+  artistsIds: artists.artistsIds
 });
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, actions)(Header);

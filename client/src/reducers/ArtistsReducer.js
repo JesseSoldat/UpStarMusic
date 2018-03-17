@@ -1,6 +1,7 @@
 import {
   SEARCH_ARTISTS,
   FIND_ARTIST,
+  ARTISTS_IDS,
   RESET_ARTIST,
   RESET_ALL_ARTISTS
 } from '../actions/types';
@@ -9,7 +10,8 @@ const INITIAL_STATE = {
   all: [],
   offset: 0,
   limit: 10,
-  artist: null
+  artist: null,
+  artistsIds: []
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -20,6 +22,10 @@ export default (state = INITIAL_STATE, action) => {
 
     case FIND_ARTIST:
       return {...state, artist: action.payload};
+
+    case ARTISTS_IDS: 
+      // console.log('ARTISTS_IDS', action.payload);
+      return {...state, artistsIds: action.payload};
 
     case RESET_ARTIST:
       return {...state, artist: null};

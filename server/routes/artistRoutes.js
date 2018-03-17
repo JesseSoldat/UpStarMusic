@@ -96,6 +96,29 @@ module.exports = (app, Artist) => {
       });
   });
 
+  app.get('/api/artists-ids', (req, res) => {
+    const excludedFields = {
+      'name': 0, 
+      'albums': 0, 
+      'age': 0, 
+      'yearsActive': 0, 
+      'image': 0, 
+      'genre': 0, 
+      'labelName': 0, 
+      'netWorth': 0,
+      'retired': 0,
+      'website': 0
+    }
+    Artist.find({}, excludedFields)
+      .then(artists => {
+        return artists.map(artist => artist._id);
+      })
+      .then(ids => res.send(ids))
+      .catch(err => {
+        res.send(err);
+      });
+  });
+
   app.get('/api/find-artist/:id', (req, res) => {
     // console.log('find-artist', req.params.id);
     Artist.findById(req.params.id)

@@ -3,6 +3,7 @@ export const SET_AGE_RANGE = 'SET_AGE_RANGE';
 export const SET_YEARS_ACTIVE_RANGE = 'SET_YEARS_ACTIVE_RANGE';
 export const SEARCH_ARTISTS = 'SEARCH_ARTISTS';
 export const FIND_ARTIST = 'FIND_ARTIST';
+export const ARTISTS_IDS = 'ARTISTS_IDS';
 export const RESET_ARTIST = 'RESET_ARTIST';
 export const CREATE_ERROR = 'CREATE_ERROR';
 export const CLEAR_ERROR = 'CLEAR_ERROR';

@@ -8,7 +8,7 @@ class Paginator extends Component {
     if(offset === 0) return;
     this.props.searchArtists({
       name: values.name || '',
-      // ...this.props.filters,
+      ...values,
       offset: (offset - 10),
       limit
     });
@@ -16,18 +16,19 @@ class Paginator extends Component {
 
   advance = () => {
     const { offset, limit, count, form: { filters: { values } } } = this.props;
-    // console.log('values', values);
+    
+    console.log('values', values);
     // console.log('limit', limit);
     // console.log('offset', offset);
     
     if((offset + limit) > count) return;
     this.props.searchArtists({
       name: values.name || '',
-      // ...this.props.filters,
+      ...values,
       offset: (offset + 10),
       limit
     });
-    console.log(this.props);
+
     
   }
 

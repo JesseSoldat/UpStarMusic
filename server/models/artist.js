@@ -15,6 +15,12 @@ const ArtistSchema = new Schema({
   albums: [AlbumSchema]
 });
 
+ArtistSchema.index({ name: 1 });
+
+
+
 const Artist = mongoose.model('artist', ArtistSchema);
+
+
 
 module.exports = Artist;

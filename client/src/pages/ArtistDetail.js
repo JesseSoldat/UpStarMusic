@@ -11,10 +11,10 @@ class ArtistDetail extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // console.log('nextProps', nextProps);
-    if(nextProps.match.params.id !== this.props.id) {
-      console.log('componentWillReceiveProps id does NOT match');
-      this.props.findArtist(nextProps.params.id)
+    // console.log('nextProps', nextProps.id);
+    if(this.props.id !== nextProps.id) {
+      // console.log('componentWillReceiveProps id does NOT match');
+      this.props.findArtist(nextProps.id);
     }
   }
 

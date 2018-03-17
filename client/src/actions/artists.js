@@ -5,6 +5,7 @@ import {
   SET_YEARS_ACTIVE_RANGE,
   SEARCH_ARTISTS,
   FIND_ARTIST,
+  ARTISTS_IDS,
   RESET_ARTIST,
   RESET_ALL_ARTISTS,
   CREATE_ERROR,
@@ -103,6 +104,18 @@ export const findArtist = (id) => {
     catch (err) {
       console.log('ACTION findArtist ERR', err); 
     }  
+  }
+}
+
+export const getArtistsIds = () => {
+  return async (dispatch) => {
+    try {
+      const res = await axios.get('/api/artists-ids');
+      dispatch({type: ARTISTS_IDS, payload: res.data}); 
+    } 
+    catch (err) {
+      console.log('ACTION getArtistsIds', err); 
+    }
   }
 }
 
